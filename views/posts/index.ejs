@@ -1,0 +1,43 @@
+<%- include('../partials/header') %>
+
+    <div class="page-header"
+        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+        <h1>Latest Blog Posts</h1>
+        <% if(typeof user !=='undefined' && user) { %>
+            <a href="/posts/new" class="btn">Write New Post</a>
+            <% } %>
+    </div>
+
+    <% if(posts.length===0) { %>
+        <p style="text-align: center; color: #777;">No posts found. be the first to write one!</p>
+        <% } else { %>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem;">
+                <% posts.forEach(post=> { %>
+                    <div class="card">
+                        <% if(post.image) { %>
+                            <div class="card-img">
+                                <img src="<%= post.image %>" alt="<%= post.title %>">
+                            </div>
+                            <% } %>
+                                <div class="card-body">
+                                    <h2 class="card-title">
+                                        <%= post.title %>
+                                    </h2>
+                                    <div class="meta">
+                                        By <strong>
+                                            <%= post.author.username %>
+                                        </strong> on <%= post.createdAt.toDateString() %>
+                                    </div>
+                                    <p>
+                                        <%= post.content.substring(0, 100) %>...
+                                    </p>
+                                    <a href="/posts/<%= post._id %>"
+                                        style="color: var(--accent); font-weight: 600; margin-top: 1rem; display: inline-block;">Read
+                                        More &rarr;</a>
+                                </div>
+                    </div>
+                    <% }) %>
+            </div>
+            <% } %>
+
+                <%- include('../partials/footer') %>

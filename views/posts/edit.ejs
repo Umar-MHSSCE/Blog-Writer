@@ -1,0 +1,27 @@
+<%- include('../partials/header') %>
+
+    <h1>Edit Post</h1>
+    <form action="/posts/<%= post._id %>?_method=PUT" method="POST" enctype="multipart/form-data"
+        style="max-width: 600px; margin-top: 2rem;">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" value="<%= post.title %>" required>
+        </div>
+        <div class="form-group">
+            <label for="image">Change Cover Image (Optional)</label>
+            <input type="file" id="image" name="image" accept="image/*">
+            <% if(post.image) { %>
+                <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #777;">Current Image: <%=
+                        post.image.split('/').pop() %>
+                </div>
+                <% } %>
+        </div>
+        <div class="form-group">
+            <label for="content">Content</label>
+            <textarea id="content" name="content" rows="10" required><%= post.content %></textarea>
+        </div>
+        <button type="submit">Update Post</button>
+        <a href="/posts/<%= post._id %>" class="btn" style="background: #95a5a6; margin-left: 1rem;">Cancel</a>
+    </form>
+
+    <%- include('../partials/footer') %>
